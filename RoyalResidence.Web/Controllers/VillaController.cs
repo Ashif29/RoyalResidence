@@ -26,7 +26,8 @@ namespace RoyalResidence.Web.Controllers
         {
             if (Obj.Name == Obj.Description)
             {
-                ModelState.AddModelError("", "Name and Description cannot be the same");
+                ModelState.AddModelError("Name", "Name and Description cannot be the same");
+                ModelState.AddModelError("Description", "Name and Description cannot be the same");
             }
             if (ModelState.IsValid)
             {
