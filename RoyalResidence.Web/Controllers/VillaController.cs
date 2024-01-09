@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RoyalResidence.Domain.Entities;
 using RoyalResidence.Infrastructure.Data;
 
 namespace RoyalResidence.Web.Controllers
@@ -18,6 +19,17 @@ namespace RoyalResidence.Web.Controllers
         }
         public IActionResult Create()
         {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Villa Obj)
+        {
+            if(ModelState.IsValid)
+            {
+                _db.Villas.Add(Obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Villa");
+            }
             return View();
         }
     }
