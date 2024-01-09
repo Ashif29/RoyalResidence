@@ -24,7 +24,11 @@ namespace RoyalResidence.Web.Controllers
         [HttpPost]
         public IActionResult Create(Villa Obj)
         {
-            if(ModelState.IsValid)
+            if (Obj.Name == Obj.Description)
+            {
+                ModelState.AddModelError("", "Name and Description cannot be the same");
+            }
+            if (ModelState.IsValid)
             {
                 _db.Villas.Add(Obj);
                 _db.SaveChanges();
