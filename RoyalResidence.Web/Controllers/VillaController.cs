@@ -60,5 +60,26 @@ namespace RoyalResidence.Web.Controllers
             }
             return View();
         }
+        public IActionResult Delete(int villaId)
+        {
+            Villa? obj = _db.Villas.FirstOrDefault(u => u.Id == villaId);
+            if (obj == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            return View(obj);
+        }
+        [HttpPost]
+        public IActionResult Delete(Villa Obj)
+        {
+            Villa? objFromDb = _db.Villas.FirstOrDefault(u => u.Id == Obj.Id); 
+            if (objFromDb is not null)
+            {
+                _db.Villas.Remove(objFromDb);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Villa");
+            }
+            return View();
+        }
     }
 }
