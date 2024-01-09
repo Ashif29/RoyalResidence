@@ -15,7 +15,7 @@ namespace RoyalResidence.Domain.Entities
         public required string Name { get; set; }
         public string? Description { get; set; }
         [DisplayName("Price Per Night")]
-        [Range(500, 100000)]
+        [Range(100, 100000)]
         public int Price { get; set; }
         public int Sqft { get; set; }
         [Range(0, 10)]

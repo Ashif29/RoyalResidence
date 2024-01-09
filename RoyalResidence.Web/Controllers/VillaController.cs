@@ -40,5 +40,29 @@ namespace RoyalResidence.Web.Controllers
             }
             return View();
         }
+        public IActionResult Update(int villaId)
+        {
+            Villa? obj = _db.Villas.FirstOrDefault(u => u.Id == villaId);
+            if(obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
+        }
+        [HttpPost]
+        public IActionResult Update(Villa Obj)
+        {
+            if (Obj == null)
+            {
+                return NotFound();
+            }
+            if(ModelState.IsValid)
+            {
+                _db.Villas.Update(Obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Villa");
+            }
+            return View();
+        }
     }
 }
