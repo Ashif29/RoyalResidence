@@ -36,6 +36,7 @@ namespace RoyalResidence.Web.Controllers
             {
                 _db.Villas.Add(Obj);
                 _db.SaveChanges();
+                TempData["success"] = "The villa has been created successfully.";
                 return RedirectToAction("Index", "Villa");
             }
             return View();
@@ -56,6 +57,7 @@ namespace RoyalResidence.Web.Controllers
             {
                 _db.Villas.Update(Obj);
                 _db.SaveChanges();
+                TempData["success"] = "The villa has been updated successfully.";
                 return RedirectToAction("Index", "Villa");
             }
             return View();
@@ -77,6 +79,7 @@ namespace RoyalResidence.Web.Controllers
             {
                 _db.Villas.Remove(objFromDb);
                 _db.SaveChanges();
+                TempData["success"] = "The villa has been deleted successfully.";
                 return RedirectToAction("Index", "Villa");
             }
             return View();
