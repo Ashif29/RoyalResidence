@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RoyalResidence.Domain\RoyalResidence.Domain.csproj" />
     <ProjectReference Include="..\RoyalResidence.Infrastructure\RoyalResidence.Infrastructure.csproj" />
   </ItemGroup>
 
