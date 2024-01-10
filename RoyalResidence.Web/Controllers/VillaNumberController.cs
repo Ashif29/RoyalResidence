@@ -92,5 +92,37 @@ namespace RoyalResidence.Web.Controllers
             });
             return View(villaNumberVM);
         }
+
+        public IActionResult Delete(int villaNumberId)
+        {
+            VillaNumberVM villaNumberVM = new()
+            {
+                VillaList = _db.Villas.ToList().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                VillaNumber = _db.VillaNumbers.FirstOrDefault(u => u.Villa_Number == villaNumberId)
+            };
+            if (villaNumberVM.VillaNumber == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            return View(villaNumberVM);
+        }
+        [HttpPost]
+        public IActionResult Delete(VillaNumberVM villaNumberVM)
+        {
+            VillaNumber? objFromDb = _db.VillaNumbers.FirstOrDefault(u => u.Villa_Number == villaNumberVM.VillaNumber.Villa_Number); 
+            if (objFromDb is not null)
+            {
+                _db.VillaNumbers.Remove(objFromDb);
+                _db.SaveChanges();
+                TempData["success"] = "The villa number has been deleted successfully.";
+                return RedirectToAction("Index");
+            }
+            TempData["error"] = "The villa number could not be deleted.";
+            return View();
+        }
     }
 }
