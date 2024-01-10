@@ -4,18 +4,19 @@ using RoyalResidence.Infrastructure.Data;
 
 namespace RoyalResidence.Web.Controllers
 {
-    public class VillaNumber : Controller
+    public class VillaNumberController : Controller
     {
         private readonly ApplicationDbContext _db;
 
-        public VillaNumber(ApplicationDbContext db)
+        public VillaNumberController (ApplicationDbContext db)
         {
             _db = db;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var villaNumbers = _db.VillaNumbers.ToList();
+            return View(villaNumbers);
         }
     }
 }
