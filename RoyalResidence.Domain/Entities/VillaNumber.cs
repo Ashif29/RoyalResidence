@@ -16,7 +16,7 @@ namespace RoyalResidence.Domain.Entities
         [DisplayName("Villa Number")]
         public int Villa_Number { get; set; }
         [ForeignKey("Villa")]
-        [DisplayName("Villa Id")]
+        [DisplayName("Villa Name")]
         public int VillaId { get; set; }
         [ValidateNever]
         public Villa Villa { get; set; }
