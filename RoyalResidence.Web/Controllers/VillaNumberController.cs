@@ -57,5 +57,40 @@ namespace RoyalResidence.Web.Controllers
             });
             return View(Obj);
         }
+
+        public IActionResult Update(int villaNumberId)
+        {
+            VillaNumberVM villaNumberVM = new()
+            {
+                VillaList = _db.Villas.ToList().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                VillaNumber = _db.VillaNumbers.FirstOrDefault(u => u.Villa_Number == villaNumberId)
+            };
+            if (villaNumberVM.VillaNumber == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            return View(villaNumberVM);
+        }
+        [HttpPost]
+        public IActionResult Update(VillaNumberVM villaNumberVM)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.VillaNumbers.Update(villaNumberVM.VillaNumber);
+                _db.SaveChanges();
+                TempData["success"] = "The villa Number has been updated successfully.";
+                return RedirectToAction("Index", "VillaNumber");
+            }
+            villaNumberVM.VillaList = _db.Villas.ToList().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            return View(villaNumberVM);
+        }
     }
 }
