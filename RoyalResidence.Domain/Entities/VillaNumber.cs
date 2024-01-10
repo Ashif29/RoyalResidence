@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -16,7 +17,8 @@ namespace RoyalResidence.Domain.Entities
         public int Villa_Number { get; set; }
         [ForeignKey("Villa")]
         [DisplayName("Villa Id")]
-        public int VillaId { get; set; } 
+        public int VillaId { get; set; }
+        [ValidateNever]
         public Villa Villa { get; set; }
         [DisplayName("Special Details")]
         public string? SpecilaDetails { get; set; }
