@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RoyalResidence.Application.Common.Interfaces;
 using RoyalResidence.Domain.Entities;
 using RoyalResidence.Infrastructure.Data;
 
@@ -6,16 +7,16 @@ namespace RoyalResidence.Web.Controllers
 {
     public class VillaController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IVillaRepository _villaRepo;
 
-        public VillaController(ApplicationDbContext db)
+        public VillaController(IVillaRepository villaRepo)
         {
-            _db = db;
+            _villaRepo = villaRepo;
         }
 
         public IActionResult Index()
         {
-            var villas = _db.Villas.ToList();
+            var villas = _villaRepo.GetAll();
             return View(villas);
         }
 
@@ -34,8 +35,8 @@ namespace RoyalResidence.Web.Controllers
             }
             if (ModelState.IsValid)
             {
-                _db.Villas.Add(Obj);
-                _db.SaveChanges();
+                _villaRepo.Add(Obj);
+                _villaRepo.Save();
                 TempData["success"] = "The villa has been created successfully.";
                 return RedirectToAction("Index", "Villa");
             }
@@ -43,7 +44,7 @@ namespace RoyalResidence.Web.Controllers
         }
         public IActionResult Update(int villaId)
         {
-            Villa? obj = _db.Villas.FirstOrDefault(u => u.Id == villaId);
+            Villa? obj = _villaRepo.Get(u => u.Id == villaId);
             if(obj == null)
             {
                 return RedirectToAction("Error", "Home");
@@ -55,8 +56,8 @@ namespace RoyalResidence.Web.Controllers
         {
             if(ModelState.IsValid)
             {
-                _db.Villas.Update(Obj);
-                _db.SaveChanges();
+                _villaRepo.Update(Obj);
+                _villaRepo.Save();
                 TempData["success"] = "The villa has been updated successfully.";
                 return RedirectToAction("Index", "Villa");
             }
@@ -64,7 +65,7 @@ namespace RoyalResidence.Web.Controllers
         }
         public IActionResult Delete(int villaId)
         {
-            Villa? obj = _db.Villas.FirstOrDefault(u => u.Id == villaId);
+            Villa? obj = _villaRepo.Get(u => u.Id == villaId);
             if (obj == null)
             {
                 return RedirectToAction("Error", "Home");
@@ -74,11 +75,11 @@ namespace RoyalResidence.Web.Controllers
         [HttpPost]
         public IActionResult Delete(Villa Obj)
         {
-            Villa? objFromDb = _db.Villas.FirstOrDefault(u => u.Id == Obj.Id); 
+            Villa? objFromDb = _villaRepo.Get(u => u.Id == Obj.Id); 
             if (objFromDb is not null)
             {
-                _db.Villas.Remove(objFromDb);
-                _db.SaveChanges();
+                _villaRepo.Remove(objFromDb);
+                _villaRepo.Save();
                 TempData["success"] = "The villa has been deleted successfully.";
                 return RedirectToAction("Index", "Villa");
             }
