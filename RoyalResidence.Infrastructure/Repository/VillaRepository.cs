@@ -19,13 +19,10 @@ namespace RoyalResidence.Infrastructure.Repository
         {
             _db = db;
         }
+
         public void Update(Villa entity)
         {
             _db.Villas.Update(entity);
-        }
-        public void Save()
-        {
-            _db.SaveChanges();
         }
     }
 }

@@ -36,7 +36,7 @@ namespace RoyalResidence.Web.Controllers
             if (ModelState.IsValid)
             {
                 _unitOfWork.Villa.Add(Obj);
-                _unitOfWork.Villa.Save();
+                _unitOfWork.Save();
                 TempData["success"] = "The villa has been created successfully.";
                 return RedirectToAction("Index", "Villa");
             }
@@ -57,7 +57,7 @@ namespace RoyalResidence.Web.Controllers
             if(ModelState.IsValid)
             {
                 _unitOfWork.Villa.Update(Obj);
-                _unitOfWork.Villa.Save();
+                _unitOfWork.Save();
                 TempData["success"] = "The villa has been updated successfully.";
                 return RedirectToAction("Index", "Villa");
             }
@@ -79,7 +79,7 @@ namespace RoyalResidence.Web.Controllers
             if (objFromDb is not null)
             {
                 _unitOfWork.Villa.Remove(objFromDb);
-                _unitOfWork.Villa.Save();
+                _unitOfWork.Save();
                 TempData["success"] = "The villa has been deleted successfully.";
                 return RedirectToAction("Index", "Villa");
             }
