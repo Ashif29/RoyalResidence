@@ -20,7 +20,7 @@ namespace RoyalResidence.Infrastructure.Data
         public DbSet<Amenity> Amenities { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //    base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Villa>().HasData(
                 new Villa
@@ -94,35 +94,30 @@ namespace RoyalResidence.Infrastructure.Data
                 {
                     Villa_Number = 302,
                     VillaId = 3,
-                },
-                new VillaNumber
-                {
-                    Villa_Number = 401,
-                    VillaId = 4,
                 }
             );
-            modelBuilder.Entity<Amenity>().HasData(
+          modelBuilder.Entity<Amenity>().HasData(
           new Amenity
           {
               Id = 1,
               VillaId = 1,
               Name = "Private Pool"
-          }, 
+          },
 
           new Amenity
           {
               Id = 2,
               VillaId = 1,
               Name = "Microwave"
-          }, 
+          },
 
           new Amenity
           {
               Id = 3,
               VillaId = 1,
               Name = "Private Balcony"
-          }, 
-          
+          },
+
           new Amenity
           {
               Id = 4,
@@ -135,22 +130,22 @@ namespace RoyalResidence.Infrastructure.Data
               Id = 5,
               VillaId = 2,
               Name = "Private Plunge Pool"
-          }, 
-          
+          },
+
           new Amenity
           {
               Id = 6,
               VillaId = 2,
               Name = "Microwave and Mini Refrigerator"
-          }, 
-          
+          },
+
           new Amenity
           {
               Id = 7,
               VillaId = 2,
               Name = "Private Balcony"
-          }, 
-          
+          },
+
           new Amenity
           {
               Id = 8,
@@ -163,15 +158,15 @@ namespace RoyalResidence.Infrastructure.Data
               Id = 9,
               VillaId = 3,
               Name = "Private Pool"
-          }, 
-          
+          },
+
           new Amenity
           {
               Id = 10,
               VillaId = 3,
               Name = "Jacuzzi"
-          }, 
-          
+          },
+
           new Amenity
           {
               Id = 11,
