@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using RoyalResidence.Application.Common.Interfaces;
 using RoyalResidence.Domain.Entities;
+using RoyalResidence.Web.ViewModels;
 
 namespace RoyalResidence.Web.Controllers
 {
@@ -24,11 +25,17 @@ namespace RoyalResidence.Web.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
-        public IActionResult Register()
+        
+        public IActionResult Login(string returnUrl = null)
         {
-            return View();
+            returnUrl??= Url.Content("~/");
+            LoginVM loginVM = new ()
+            {
+                RedirectUrl = returnUrl
+            };
+            return View(loginVM);
         }
-        public IActionResult Login()
+        public IActionResult Register()
         {
             return View();
         }
