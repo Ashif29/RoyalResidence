@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RoyalResidence.Application.Common.Interfaces;
+using RoyalResidence.Application.Common.Utility;
 using RoyalResidence.Domain.Entities;
 using RoyalResidence.Infrastructure.Data;
 
 namespace RoyalResidence.Web.Controllers
 {
+    [Authorize]
     public class VillaController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

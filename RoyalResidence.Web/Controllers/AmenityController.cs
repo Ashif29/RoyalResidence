@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RoyalResidence.Application.Common.Interfaces;
+using RoyalResidence.Application.Common.Utility;
 using RoyalResidence.Domain.Entities;
 using RoyalResidence.Infrastructure.Data;
 using RoyalResidence.Web.ViewModels;
 
-namespace WhiteLagoon.Web.Controllers
+namespace RoyalResidence.Web.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
 
     public class AmenityController : Controller
     {
