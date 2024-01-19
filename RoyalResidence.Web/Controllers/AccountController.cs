@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Identity.Client;
 using RoyalResidence.Application.Common.Interfaces;
 using RoyalResidence.Domain.Entities;
@@ -41,7 +42,15 @@ namespace RoyalResidence.Web.Controllers
                 _roleManager.CreateAsync(new IdentityRole("Admin")).Wait();
                 _roleManager.CreateAsync(new IdentityRole("Customer")).Wait();
             }
-            return View();
+            RegisterVM registerVM = new()
+            {
+                RollList = _roleManager.Roles.Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Name
+                })
+            };
+            return View(registerVM);
         }
     }
 }
