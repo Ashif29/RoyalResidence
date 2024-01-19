@@ -14,16 +14,19 @@
                 <div class="col-md-12">
                     <section>
                         <form method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger" ></div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" aria-required="true" />
-                                <label class="form-label">Email</label>
+                                <input asp-for="Email" class="form-control" aria-required="true" />
+                                <label asp-for="Email" class="form-label"></label>
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                             <div class="form-floating mb-3">
-                                <input class="form-control" aria-required="true" />
-                                <label class="form-label">Password</label>
+                                <input asp-for="Password" class="form-control" aria-required="true" />
+                                <label asp-for="Password" class="form-label"></label>
+                                <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                             <div class="checkbox mb-3">
-                                <input class="form-check-input" />
+                                <input class="form-check-input" asp-for="RememberMe" />
 
                                 <label class="form-label">
                                     Remember Me
@@ -34,10 +37,10 @@
                             </div>
                             <div class="d-flex justify-content-between pt-2">
                                 <p>
-                                    <a asp-controller="Account" asp-action="ForgotPassword">Forgot your password?</a>
+                                    <a asp-action="ForgotPassword">Forgot your password?</a>
                                 </p>
                                 <p>
-                                    <a asp-controller ="Account" asp-action="Register">Register as a new user</a>
+                                    <a asp-action="Register">Register as a new user</a>
                                 </p>
                             </div>
                         </form>
@@ -49,3 +52,6 @@
     </div>
 </div>
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
