@@ -36,6 +36,34 @@ namespace RoyalResidence.Web.Controllers
             };
             return View(loginVM);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginVM loginVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(loginVM.Email, loginVM.Password, loginVM.RememberMe, lockoutOnFailure:false);
+
+                if (result.Succeeded)
+                {
+
+                    if (string.IsNullOrEmpty(loginVM.RedirectUrl))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return LocalRedirect(loginVM.RedirectUrl);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid Login Attempt");
+                }
+            }
+            return View(loginVM);
+        }
+
         public IActionResult Register()
         {
             if (!_roleManager.RoleExistsAsync(SD.Role_Admin).GetAwaiter().GetResult())
