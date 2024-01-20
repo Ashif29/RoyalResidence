@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,5 +33,8 @@ namespace RoyalResidence.Domain.Entities
 
         [ValidateNever]
         public IEnumerable<Amenity> VillaAmenity { get; set; }
+
+        [NotMapped]
+        public bool IsAvailable { get; set; } = true;
     }
 }

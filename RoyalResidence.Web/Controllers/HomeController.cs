@@ -26,6 +26,36 @@ namespace RoyalResidence.Web.Controllers
             return View(homeVM);
         }
 
+        [HttpPost]
+        public IActionResult Index(HomeVM homeVM)
+        {
+            homeVM.VillaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity");
+
+            
+            return View(homeVM);
+        }
+        public IActionResult GetVillasByDate(int nighs, DateOnly checkInDate)
+        {
+            var villaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity").ToList();
+
+            foreach (var villa in villaList)
+            {
+                if (villa.Id % 2 == 0)
+                {
+                    villa.IsAvailable = false;
+                }
+            }
+
+            HomeVM homeVM = new()
+            {
+                CheckInDate = checkInDate,
+                Nights = nighs,
+                VillaList = villaList
+            };
+
+            return PartialView("_VillaList", homeVM);
+        }
+
         public IActionResult Privacy()
         {
             return View();
