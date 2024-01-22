@@ -14,12 +14,14 @@ namespace RoyalResidence.Infrastructure.Repository
         public IVillaRepository Villa { get; private set; }
         public IVillaNumberRepository VillaNumber { get; private set; }
         public IAmenityRepository Amenity { get; private set; }
+        public IBookingRepository Booking { get; private set; }
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
             Villa = new VillaRepository(db);
             Amenity = new AmenityRepository(db);
             VillaNumber = new VillaNumberRepository(db);
+            Booking = new BookingRepository(db);
         }
         public void Save()
         {
