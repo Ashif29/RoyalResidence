@@ -40,6 +40,7 @@ namespace RoyalResidence.Web.Controllers
                 Email = user.Email,
                 Name = user.Name
             };
+            booking.TotalCost = booking.Villa.Price * nights;
             return View(booking);
         }
     }
