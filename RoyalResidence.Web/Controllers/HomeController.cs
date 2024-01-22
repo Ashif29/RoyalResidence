@@ -27,14 +27,7 @@ namespace RoyalResidence.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(HomeVM homeVM)
-        {
-            homeVM.VillaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity");
-
-            
-            return View(homeVM);
-        }
-        public IActionResult GetVillasByDate(int nighs, DateOnly checkInDate)
+        public IActionResult GetVillasByDate(int nights, DateOnly checkInDate)
         {
             var villaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenity").ToList();
 
@@ -49,7 +42,7 @@ namespace RoyalResidence.Web.Controllers
             HomeVM homeVM = new()
             {
                 CheckInDate = checkInDate,
-                Nights = nighs,
+                Nights = nights,
                 VillaList = villaList
             };
 
