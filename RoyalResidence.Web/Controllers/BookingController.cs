@@ -43,5 +43,24 @@ namespace RoyalResidence.Web.Controllers
             booking.TotalCost = booking.Villa.Price * nights;
             return View(booking);
         }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult FinalizeBooking(Booking booking)
+        {
+            var villa = _unitOfWork.Villa.Get(u => u.Id ==  booking.VillaId);
+            booking.TotalCost = villa.Price * booking.Nights;
+            booking.BookingDate = DateTime.Now;
+            booking.Status = SD.StatusPending;
+            _unitOfWork.Booking.Add(booking);
+            _unitOfWork.Save();
+            return RedirectToAction("BookingConfirmation", "Booking", new {bookingId = booking.Id});
+        }
+
+        [Authorize]
+        public IActionResult BookingConfirmation(int bookingId) 
+        { 
+            return View(bookingId);
+        }
     }
 }
