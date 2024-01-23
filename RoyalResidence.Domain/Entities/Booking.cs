@@ -47,8 +47,8 @@ namespace RoyalResidence.Domain.Entities
         public string? StripeSessionId { get; set; }
         public string? StripePaymentIntentId { get; set; }
 
-        public DateOnly ActualCheckInDate { get; set; }
-        public DateOnly ActualCheckOutDate { get; set; }
+        public DateTime ActualCheckInDate { get; set; }
+        public DateTime ActualCheckOutDate { get; set; }
 
         public int VillaNumber { get; set; }
     }

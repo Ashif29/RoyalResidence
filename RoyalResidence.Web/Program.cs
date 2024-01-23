@@ -4,6 +4,7 @@ using RoyalResidence.Application.Common.Interfaces;
 using RoyalResidence.Domain.Entities;
 using RoyalResidence.Infrastructure.Data;
 using RoyalResidence.Infrastructure.Repository;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ builder.Services.Configure<IdentityOptions>(option =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
+
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
