@@ -6,7 +6,7 @@ using RoyalResidence.Domain.Entities;
 using RoyalResidence.Infrastructure.Data;
 using RoyalResidence.Web.ViewModels;
 
-namespace WhiteLagoon.Web.Controllers
+namespace RoyalResidence.Web.Controllers
 {
 
     public class VillaNumberController : Controller
