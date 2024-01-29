@@ -23,12 +23,13 @@ namespace RoyalResidence.Infrastructure.Repository
             _db.Bookings.Update(entity);
         }
 
-        public void UpdateStatus(int bookingId, string bookingStatus)
+        public void UpdateStatus(int bookingId, string bookingStatus, int villaNumber = 0)
         {
             var bookingFromDb = _db.Bookings.FirstOrDefault(u => u.Id == bookingId);
             if (bookingFromDb != null)
             {
                 bookingFromDb.Status = bookingStatus;
+                bookingFromDb.VillaNumber = villaNumber;
                 if (bookingStatus == SD.StatusCheckedIn)
                 {
                     bookingFromDb.ActualCheckInDate = DateTime.Now;
