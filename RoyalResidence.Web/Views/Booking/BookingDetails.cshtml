@@ -10,8 +10,7 @@
                 </div>
                 <div class="col-6 text-end">
                     <a class="btn btn-secondary my-2"
-                    asp-controller="Booking" asp-action="Index"
-                    ><i class="bi bi-arrow-left-circle"></i> Back to Bookings</a>
+                       asp-controller="Booking" asp-action="Index" asp-route-status="@SD.StatusApproved"><i class="bi bi-arrow-left-circle"></i> Back to Bookings</a>
                 </div>
                 <hr />
                 <partial name="_VillaDetail" model="@Model.Villa"/>
