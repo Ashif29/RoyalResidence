@@ -59,6 +59,25 @@ namespace RoyalResidence.Web.Controllers
             booking.TotalCost = villa.Price * booking.Nights;
             booking.BookingDate = DateTime.Now;
             booking.Status = SD.StatusPending;
+
+            var villaNumbersList = _unitOfWork.VillaNumber.GetAll().ToList();
+            var bookedVillas = _unitOfWork.Booking.GetAll(u => u.Status == SD.StatusApproved ||
+            u.Status == SD.StatusCheckedIn).ToList();
+
+            int roomAvailable = SD.VillaRoomsAvailable_Count
+                (villa.Id, villaNumbersList, booking.CheckInDate, booking.Nights, bookedVillas);
+
+            if (roomAvailable == 0)
+            {
+                TempData["error"] = "Room has been sold out!";
+                //no rooms available
+                return RedirectToAction(nameof(FinalizeBooking), new
+                {
+                    villaId = booking.VillaId,
+                    checkInDate = booking.CheckInDate,
+                    nights = booking.Nights
+                });
+            }
             _unitOfWork.Booking.Add(booking);
             _unitOfWork.Save();
 
@@ -175,7 +194,7 @@ namespace RoyalResidence.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = SD.Role_Admin)]
-        public IActionResult CanceleBooking(Booking booking)
+        public IActionResult CancelBooking(Booking booking)
         {
             _unitOfWork.Booking.UpdateStatus(booking.Id, SD.StatusCancelled, booking.VillaNumber);
             _unitOfWork.Save();
