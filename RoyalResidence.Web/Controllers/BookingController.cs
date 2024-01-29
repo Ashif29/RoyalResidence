@@ -173,6 +173,16 @@ namespace RoyalResidence.Web.Controllers
             return RedirectToAction(nameof(BookingDetails), new { bookingId = booking.Id });
         }
 
+        [HttpPost]
+        [Authorize(Roles = SD.Role_Admin)]
+        public IActionResult CanceleBooking(Booking booking)
+        {
+            _unitOfWork.Booking.UpdateStatus(booking.Id, SD.StatusCancelled, booking.VillaNumber);
+            _unitOfWork.Save();
+            TempData["Success"] = "Booking Cancelled Successfully.";
+            return RedirectToAction(nameof(BookingDetails), new { bookingId = booking.Id });
+        }
+
 
         #region API Calls
 
